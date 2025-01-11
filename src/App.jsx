@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 
 import Form from './components/Form';
 import MemoryCard from './components/MemoryCard';
+import { decodeEntity } from 'html-entities';
 
 const App = () => {
 	const [isGameOn, setIsGameOn] = useState(false);
+	const [emojisData, setEmojisData] = useState([]);
 
 	const startGame = async (e) => {
 		e.preventDefault();
@@ -15,7 +17,9 @@ const App = () => {
 			}
 
 			const data = await response.json();
-			console.log(data);
+			const dataSample = data.slice(0, 5);
+			console.log(dataSample);
+			setEmojisData(dataSample);
 			setIsGameOn(true);
 		} catch (error) {
 			console.error(error);
