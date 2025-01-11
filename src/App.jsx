@@ -16,14 +16,35 @@ const App = () => {
 			}
 
 			const data = await response.json();
-			const dataSample = data.slice(0, 5);
+			const dataSlice = getSliceData(data);
 
-			setEmojisData(dataSample);
+			setEmojisData(dataSlice);
 			setIsGameOn(true);
 		} catch (error) {
 			console.error(error);
 			setIsGameOn(false);
 		}
+	};
+
+	const getSliceData = (data) => {
+		const randomIndices = getRandomIndices(data);
+
+		const dataSlice = randomIndices.map((index) => data[index]);
+
+		return dataSlice;
+	};
+
+	const getRandomIndices = (data) => {
+		const randomIndicesArray = [];
+
+		while (randomIndicesArray.length < 5) {
+			const randomNum = Math.floor(Math.random() * data.length);
+			if (!randomIndicesArray.includes(randomNum)) {
+				randomIndicesArray.push(randomNum);
+			}
+		}
+
+		return randomIndicesArray;
 	};
 
 	function turnCard() {
