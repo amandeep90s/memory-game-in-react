@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 
 import Form from './components/Form';
 import MemoryCard from './components/MemoryCard';
-import { decodeEntity } from 'html-entities';
 
 const App = () => {
 	const [isGameOn, setIsGameOn] = useState(false);
@@ -18,7 +17,7 @@ const App = () => {
 
 			const data = await response.json();
 			const dataSample = data.slice(0, 5);
-			console.log(dataSample);
+
 			setEmojisData(dataSample);
 			setIsGameOn(true);
 		} catch (error) {
@@ -35,7 +34,7 @@ const App = () => {
 		<main>
 			<h1>Memory</h1>
 			{!isGameOn && <Form handleSubmit={startGame} />}
-			{isGameOn && <MemoryCard handleClick={turnCard} />}
+			{isGameOn && <MemoryCard handleClick={turnCard} data={emojisData} />}
 		</main>
 	);
 };
